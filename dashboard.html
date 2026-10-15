@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Green Leaf | Admin Dashboard</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f4;
+            color: #333;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 240px;
+
+            height: 100vh;
+
+            background: #1b5e20;
+
+            color: white;
+
+            padding: 25px 15px;
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .logo span {
+
+            display: block;
+
+            font-size: 35px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .menu a {
+
+            display: block;
+
+            padding: 14px 15px;
+
+            margin-bottom: 8px;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+        }
+
+
+        .menu a:hover,
+        .menu a.active {
+
+            background: #2e7d32;
+
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+
+            margin-left: 240px;
+
+            padding: 25px;
+
+        }
+
+
+        .topbar {
+
+            background: white;
+
+            padding: 18px 22px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,.08);
+
+        }
+
+
+        .topbar h1 {
+
+            color: #1b5e20;
+
+        }
+
+
+        .logout {
+
+            background: #c62828;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .logout:hover {
+
+            background: #a61b1b;
+
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,.08);
+
+        }
+
+
+        .stat-card h3 {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .stat-card strong {
+
+            font-size: 30px;
+
+            color: #1b5e20;
+
+        }
+
+
+        .icon {
+
+            float: right;
+
+            font-size: 30px;
+
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,.08);
+
+        }
+
+
+        .section h2 {
+
+            color: #1b5e20;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            background: #e8f5e9;
+
+            color: #1b5e20;
+
+            padding: 13px;
+
+            text-align: left;
+
+        }
+
+
+        td {
+
+            padding: 13px;
+
+            border-bottom:
+                1px solid #eee;
+
+        }
+
+
+        .plant-img {
+
+            width: 50px;
+
+            height: 50px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+        }
+
+
+        .badge {
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        .available {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+        }
+
+
+        .category {
+
+            background: #e3f2fd;
+
+            color: #1565c0;
+
+        }
+
+
+        /* =========================
+           ORDER BOX
+        ========================= */
+
+        .order-box {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .order {
+
+            padding: 20px;
+
+            background: #f8faf8;
+
+            border-left:
+                5px solid #2e7d32;
+
+            border-radius: 7px;
+
+        }
+
+
+        .order h3 {
+
+            color: #1b5e20;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .order p {
+
+            margin: 5px 0;
+
+            color: #666;
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            text-align: center;
+
+            padding: 20px;
+
+            color: #777;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 1000px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .order-box {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .topbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+                align-items: flex-start;
+
+            }
+
+
+            table {
+
+                font-size: 12px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        <span>🌿</span>
+
+        GREEN LEAF
+
+        <small>
+            Admin Panel
+        </small>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="#dashboard"
+           class="active">
+
+            🏠 Dashboard
+
+        </a>
+
+
+        <a href="#products">
+
+            🌱 Products
+
+        </a>
+
+
+        <a href="#orders">
+
+            🛒 Orders
+
+        </a>
+
+
+        <a href="#stock">
+
+            📦 Stock
+
+        </a>
+
+
+        <a href="../index.html">
+
+            🌐 Website
+
+        </a>
+
+
+        <a href="index.html">
+
+            🔐 Login
+
+        </a>
+
+    </nav>
+
+
+</aside>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="main">
+
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p>
+                Welcome to Green Leaf Nursery
+            </p>
+
+        </div>
+
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         STATISTICS
+    ================================================== -->
+
+    <div
+        class="stats"
+        id="dashboard">
+
+
+        <div class="stat-card">
+
+            <span class="icon">
+                🌱
+            </span>
+
+            <h3>
+                Total Plants
+            </h3>
+
+            <strong>
+                12
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="icon">
+                🛒
+            </span>
+
+            <h3>
+                Cart Items
+            </h3>
+
+            <strong id="cartItemsCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="icon">
+                📦
+            </span>
+
+            <h3>
+                Available Stock
+            </h3>
+
+            <strong>
+                12
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="icon">
+                💰
+            </span>
+
+            <h3>
+                Plant Categories
+            </h3>
+
+            <strong>
+                4
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ==================================================
+         PRODUCTS
+    ================================================== -->
+
+    <section
+        class="section"
+        id="products">
+
+
+        <h2>
+            🌱 Plant Products
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Image
+                    </th>
+
+                    <th>
+                        Plant Name
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                    <th>
+                        Stock
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1593482892290-f54927ae1bb6?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Snake Plant
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Indoor
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹299
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1620127252536-03bdfcf6f4f1?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Money Plant
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Indoor
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹199
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Peace Lily
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Indoor
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹349
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Areca Palm
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Indoor
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹499
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Rose Plant
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Flower
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹249
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <img
+                            class="plant-img"
+                            src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=200&q=80">
+                    </td>
+
+                    <td>
+                        Jasmine Plant
+                    </td>
+
+                    <td>
+                        <span class="badge category">
+                            Flower
+                        </span>
+                    </td>
+
+                    <td>
+                        ₹229
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         ORDERS
+    ================================================== -->
+
+    <section
+        class="section"
+        id="orders">
+
+
+        <h2>
+            🛒 Recent Orders
+        </h2>
+
+
+        <div class="order-box">
+
+
+            <div class="order">
+
+                <h3>
+                    Order #001
+                </h3>
+
+                <p>
+                    Customer: Green Leaf Customer
+                </p>
+
+                <p>
+                    Product: Snake Plant
+                </p>
+
+                <p>
+                    Quantity: 1
+                </p>
+
+                <p>
+                    Amount: ₹299
+                </p>
+
+                <span class="badge available">
+                    Completed
+                </span>
+
+            </div>
+
+
+            <div class="order">
+
+                <h3>
+                    Order #002
+                </h3>
+
+                <p>
+                    Customer: Nashik Customer
+                </p>
+
+                <p>
+                    Product: Money Plant
+                </p>
+
+                <p>
+                    Quantity: 2
+                </p>
+
+                <p>
+                    Amount: ₹398
+                </p>
+
+                <span class="badge available">
+                    Completed
+                </span>
+
+            </div>
+
+
+            <div class="order">
+
+                <h3>
+                    Order #003
+                </h3>
+
+                <p>
+                    Customer: Green Garden
+                </p>
+
+                <p>
+                    Product: Rose Plant
+                </p>
+
+                <p>
+                    Quantity: 1
+                </p>
+
+                <p>
+                    Amount: ₹249
+                </p>
+
+                <span class="badge available">
+                    Completed
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         STOCK
+    ================================================== -->
+
+    <section
+        class="section"
+        id="stock">
+
+
+        <h2>
+            📦 Stock Information
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Plants
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        Indoor Plants
+                    </td>
+
+                    <td>
+                        4
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Flower Plants
+                    </td>
+
+                    <td>
+                        4
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Fruit Plants
+                    </td>
+
+                    <td>
+                        3
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Outdoor Plants
+                    </td>
+
+                    <td>
+                        1
+                    </td>
+
+                    <td>
+                        <span class="badge available">
+                            Available
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+    </section>
+
+
+
+    <footer>
+
+        © 2026 Green Leaf Nursery
+
+    </footer>
+
+
+</main>
+
+
+
+<script>
+
+    /* CART COUNT */
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem(
+                "greenLeafCart"
+            )
+        ) || [];
+
+
+    const totalItems =
+        cart.reduce(
+            (total, item) =>
+                total + item.quantity,
+            0
+        );
+
+
+    document.getElementById(
+        "cartItemsCount"
+    ).textContent = totalItems;
+
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        localStorage.removeItem(
+            "greenLeafAdminLoggedIn"
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
